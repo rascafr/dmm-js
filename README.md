@@ -2,7 +2,9 @@
 
 Node.js RS232 API for compatible DMM (Digital Multimeter) and other SCPI-compatible devices.
 
-> **The story behind:** I got a spare Agilent 34401A DMM at home, but the display is not working properly (some segments are faulty). I decided to perform readings through the serial port, but I cannot find any suitable library or tool under unix / macOS, so I decided to make my own one.
+![logo](media/dmmjs.png)
+
+> **Storytime section:** I got a spare Agilent 34401A DMM at home, but the display is not working properly (some segments are faulty). I decided to perform readings through the serial port, but I cannot find any suitable library or tool under unix / macOS, so I decided to make my own one.
 
 ## Installation
 
@@ -42,58 +44,6 @@ Check the `examples` folder and try the available scripts!
 - `selftest` runs the device selftest and returns the pass/fail status
 - `text` will play with the display function and show some messages
 
-## API
-
-### Opening a serial port connection
-
-```js
-myDevice.open()
-```
-
-### Link device
-
-Will set the device in remote mode (if not already), and reset / clear instrument state if the `keepState` property is set to false.
-
-```js
-myDevice.linkDevice(keepState)
-```
-
-### Unlink device
-
-Will set the device in local mode.
-
-```js
-myDevice.unlinkDevice(keepState)
-```
-
-### Get device information
-
-Must be done once the device has been linked.
-
-```js
-myDevice.getDeviceInfo()
-```
-
-### Other API methods
-
-```js
-async setDisplayText(shortText)
-async clearDisplayText()
-async setDisplayVisibility(isON)
-async selfTest()
-async getErrors()
-async resetDevice()
-async clearDeviceStatus()
-async readDCVoltage()
-async readACVoltage()
-async readDCCurrent()
-async readACCurrent()
-async readResistance()
-async readFrequency()
-writeCommand(command)
-readCommand(command, timeout)
-```
-
 ## RS232 setup
 
 This library is based on the famous [serialport](https://www.npmjs.com/package/serialport) package and will inherit some of its config properties. After many hours, I finally found a working configuration for it so the communication can be established between the device and my laptop, but if you have issues on your side, you can pass different setting values during the DMM initialisation:
@@ -132,6 +82,118 @@ Most of the time, you'll just have to change the `baudRate` and `parity` values.
 [MENU] > [E: I/O] > 3: BAUD RATE
 [MENU] > [E: I/O] > 4: PARITY
 [MENU] > [E: I/O] > 5: LANGUAGE (ensure SCPI is set)
+```
+
+## API
+
+### Opening a serial port connection
+
+```js
+myDevice.open()
+```
+
+### Link device
+
+Will set the device in remote mode (if not already), and reset / clear instrument state if the `keepState` property is set to false.
+
+```js
+myDevice.linkDevice(keepState)
+```
+
+### Unlink device
+
+Will set the device in local mode.
+
+```js
+myDevice.unlinkDevice(keepState)
+```
+
+### Get device information
+
+Must be done once the device has been linked.
+
+```js
+myDevice.getDeviceInfo()
+```
+
+### Display text on the DMM's screen
+
+Depending of your device, text might be truncated
+
+```js
+setDisplayText("Hello DMM!")
+```
+
+### Clear display text
+
+```js
+clearDisplayText()
+```
+
+### Enable / disable device display
+
+```js
+setDisplayVisibility(isON)
+```
+
+### Run device selftest
+
+Returns 0 if "PASS", -1 or -2 if failed
+
+```js
+selfTest()
+```
+
+### Get device errors
+
+Returns an object with the code id and error message.
+
+Run it multiple time to read and flush all the errors.
+
+```js
+getErrors()
+```
+
+### Reset device
+
+Only the `clearDeviceStatus` will clear the pending error buffer
+
+```js
+resetDevice()
+clearDeviceStatus()
+```
+
+### Perform DMM measurements
+
+Each value is returned as a float object, mesurements are done using the `CONF ... AUTO`, and then `READ?` commands. No range or trigger is set (immediate reading).
+
+```js
+readDCVoltage()
+readACVoltage()
+readDCCurrent()
+readACCurrent()
+readResistance()
+readFrequency()
+```
+
+### Write commands to DMM
+
+Command must be a SCPI-compatible string (refer to the *Documentation* section below)
+
+After each `write` command operation, a delay is applied (see `txPause` in the config object)
+
+```js
+writeCommand(command)
+```
+
+### Read commands from DMM
+
+Command must be a SCPI-compatible string (refer to the *Documentation* section below)
+
+If `timeout` is set (in ms), it overrides the default `rxTimeout` from the config object.
+
+```js
+readCommand(command, timeout)
 ```
 
 ## Debugging
