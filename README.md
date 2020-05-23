@@ -13,7 +13,7 @@ npm i dmm.js-serial
 ## Quick usage
 
 ```js
-const DMMjs = require('dmm-js');
+const DMMjs = require('dmm.js-serial');
 const my34401a = new DMMjs('/dev/tty.usbserial');
 
 (async () => {
