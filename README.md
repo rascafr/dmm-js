@@ -32,6 +32,16 @@ const my34401a = new DMMjs('/dev/tty.usbserial');
 });
 ```
 
+## Examples
+
+Check the `examples` folder and try the available scripts!
+
+- `connect` will link, read device id and version, unlink
+- `errors` produces some errors, then reads the result codes
+- `read` perform DC & AC voltage and current measurement, plus resistance (2W) and frequency
+- `selftest` runs the device selftest and returns the pass/fail status
+- `text` will play with the display function and show some messages
+
 ## API
 
 ### Opening a serial port connection
