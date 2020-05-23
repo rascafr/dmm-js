@@ -32,6 +32,58 @@ const my34401a = new DMMjs('/dev/tty.usbserial');
 });
 ```
 
+## API
+
+### Opening a serial port connection
+
+```js
+myDevice.open()
+```
+
+### Link device
+
+Will set the device in remote mode (if not already), and reset / clear instrument state if the `keepState` property is set to false.
+
+```js
+myDevice.linkDevice(keepState)
+```
+
+### Unlink device
+
+Will set the device in local mode.
+
+```js
+myDevice.unlinkDevice(keepState)
+```
+
+### Get device information
+
+Must be done once the device has been linked.
+
+```js
+myDevice.getDeviceInfo()
+```
+
+### Other API methods
+
+```js
+async setDisplayText(shortText)
+async clearDisplayText()
+async setDisplayVisibility(isON)
+async selfTest()
+async getErrors()
+async resetDevice()
+async clearDeviceStatus()
+async readDCVoltage()
+async readACVoltage()
+async readDCCurrent()
+async readACCurrent()
+async readResistance()
+async readFrequency()
+writeCommand(command)
+readCommand(command, timeout)
+```
+
 ## RS232 setup
 
 This library is based on the famous [serialport](https://www.npmjs.com/package/serialport) package and will inherit some of its config properties. After many hours, I finally found a working configuration for it so the communication can be established between the device and my laptop, but if you have issues on your side, you can pass different setting values during the DMM initialisation:
