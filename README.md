@@ -7,7 +7,7 @@ Node.js RS232 API for compatible DMM (Digital Multimeter) and other SCPI-compati
 ## Installation
 
 ```bash
-npm i dmm-js
+npm i dmm.js-serial
 ```
 
 ## Quick usage

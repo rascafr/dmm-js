@@ -1,5 +1,5 @@
 {
-  "name": "dmm-js",
+  "name": "dmm.js-serial",
   "version": "0.1.1",
   "description": "RS232 API for compatible DMM (Digital Multimeter) and other SCPI-compatible devices",
   "main": "index.js",
