@@ -176,6 +176,8 @@ readResistance()
 readFrequency()
 ```
 
+Please note that the `readResistance` method only uses two wires. For the 4T sensing (Kelvin mode), you'll need to use `readCommand` with `CONFigure:FRESistance` SCPI command.
+
 ### Write commands to DMM
 
 Command must be a SCPI-compatible string (refer to the *Documentation* section below)
