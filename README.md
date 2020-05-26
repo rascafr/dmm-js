@@ -42,6 +42,7 @@ Check the `examples` folder and try the available scripts!
 - `errors` produces some errors, then reads the result codes
 - `read` perform DC & AC voltage and current measurement, plus resistance (2W) and frequency
 - `selftest` runs the device selftest and returns the pass/fail status
+- `terminals` reads the current terminals position, wait for the user to switch it, displays new value
 - `text` will play with the display function and show some messages
 
 ## RS232 setup
@@ -148,6 +149,14 @@ Returns 0 if "PASS", -1 or -2 if failed
 
 ```js
 selfTest()
+```
+
+### Get terminals position
+
+Returns "front" or "back" depending of the terminals switch position
+
+```js
+getTerminalsPosition()
 ```
 
 ### Get device errors
