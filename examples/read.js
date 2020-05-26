@@ -1,8 +1,9 @@
 const DMMjs = require('..');
+const Util = require('./util');
 
 (async () => {
 
-    const my34401 = new DMMjs('/dev/tty.usbserial-14530');
+    const my34401 = new DMMjs(Util.findxNixSerialPort());
 
     await my34401.open();
     await my34401.linkDevice();
@@ -15,5 +16,6 @@ const DMMjs = require('..');
     console.log('Resistance:', await my34401.readResistance());
 
     await my34401.unlinkDevice();
+    await my34401.close();
 
 })();

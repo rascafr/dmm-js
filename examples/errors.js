@@ -1,8 +1,9 @@
 const DMMjs = require('..');
+const Util = require('./util');
 
 (async () => {
 
-    const my34401 = new DMMjs('/dev/tty.usbserial-14530');
+    const my34401 = new DMMjs(Util.findxNixSerialPort());
 
     await my34401.open();
     await my34401.linkDevice(); // keepState is not set, so we'll clear previous errors here
@@ -22,6 +23,7 @@ const DMMjs = require('..');
         errors.push(err);
     }
     await my34401.unlinkDevice();
+    await my34401.close();
 
     // keep only real errors
     let trueErrors = errors.filter(e => e.code !== 0);
