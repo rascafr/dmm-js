@@ -86,7 +86,7 @@ Most of the time, you'll just have to change the `baudRate` and `parity` values.
 
 ## API
 
-### Opening a serial port connection
+### Opening the serial port connection
 
 ```js
 myDevice.open()
@@ -106,6 +106,12 @@ Will set the device in local mode.
 
 ```js
 myDevice.unlinkDevice(keepState)
+```
+
+### Closing the serial port connection
+
+```js
+myDevice.close(keepState)
 ```
 
 ### Get device information
